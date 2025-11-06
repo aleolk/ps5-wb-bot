@@ -242,3 +242,18 @@ if __name__ == '__main__':
     threading.Thread(target=run_scheduler, daemon=True).start()
     print("PS5 Бот запущен с фильтрами...")
     bot.infinity_polling()
+# Пингер для 24/7
+import threading
+import requests
+
+def keep_alive():
+    url = "https://ps5-wb-bot.aleolk.repl.co"  # ← ТВОЙ URL
+    while True:
+        try:
+            requests.get(url)
+            print("Пинг отправлен — бот жив!")
+        except:
+            pass
+        threading.Event().wait(300)  # каждые 5 минут
+
+threading.Thread(target=keep_alive, daemon=True).start()
