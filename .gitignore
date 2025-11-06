@@ -1,0 +1,6 @@
+.env
+__pycache__/
+*.pyc
+*.log
+user_ranges.json
+seen_products.json
