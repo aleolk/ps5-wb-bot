@@ -73,7 +73,7 @@ def scrape_ps5_new_listings(min_price=None, max_price=None, filters=None):
     new_products = []
     try:
         response = requests.get(url, headers=headers, timeout=15)
-        soup = BeautifulSoup(response.text, 'lxml')
+        soup = BeautifulSoup(response.text, 'html.parser')
         cards = soup.find_all('div', class_='product-card__wrapper')[:30]
 
         for card in cards:
