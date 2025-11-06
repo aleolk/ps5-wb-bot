@@ -1,0 +1,6 @@
+pyTelegramBotAPI
+requests
+beautifulsoup4
+schedule
+python-dotenv
+lxml  # Для быстрого парсинга

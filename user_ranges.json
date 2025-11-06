@@ -1,0 +1,13 @@
+{
+  "7194664972": {
+    "min_price": 30000,
+    "max_price": 60000,
+    "filters": [
+      "digital",
+      "disc",
+      "slim",
+      "1tb",
+      "standard"
+    ]
+  }
+}
