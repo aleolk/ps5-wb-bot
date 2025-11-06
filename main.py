@@ -49,11 +49,11 @@ user_settings = load_user_settings()  # {chat_id: {'min': int, 'max': int, 'filt
 
 # Ключевые слова для фильтрации
 FILTER_KEYWORDS = {
-    'digital': ['digital', 'цифровая', 'без привода'],
-    'disc': ['disc', 'диск', 'с приводом'],
-    'slim': ['slim', 'тонкая'],
-    '1tb': ['1tb', '1 tb', '1000 гб'],
-    'standard': ['825', 'standard', 'обычная']
+    'digital': ['digital', 'цифровая', 'цифровое', 'без привода', 'без диска', 'диск-free'],
+    'disc': ['disc', 'диск', 'привод', 'с приводом', 'blu-ray', 'blu ray', 'с диском', 'дисковая'],
+    'slim': ['slim', 'тонкая', 'slim edition', 'slim версия', 'компактная'],
+    '1tb': ['1tb', '1 tb', '1тб', '1000 гб', '1 тб', '1тб ссд'],
+    'standard': ['825', 'standard', 'обычная', 'оригинал', '825 гб', 'стандартная']
 }
 
 def matches_filter(name_lower, filters):
