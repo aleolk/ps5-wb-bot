@@ -242,7 +242,8 @@ if __name__ == '__main__':
     threading.Thread(target=run_scheduler, daemon=True).start()
     print("PS5 Бот запущен с фильтрами...")
     bot.infinity_polling()
-# === 24/7 ПИНГЕР + FLASK СЕРВЕР (НЕ СПИТ) ===
+
+# === 24/7 FLASK СЕРВЕР + ПИНГЕР (НЕ СПИТ) ===
 from flask import Flask
 import threading
 import requests
@@ -254,22 +255,24 @@ app = Flask('')
 def home():
     return "PS5 Bot is alive! 🕹️"
 
+def run_flask():
+    app.run(host='0.0.0.0', port=8080)
+
 def keep_alive():
-    global url
     url = f"https://{os.getenv('REPL_SLUG', 'ps5-wb-bot')}.{os.getenv('REPL_OWNER', 'aleolk')}.repl.co"
     while True:
         try:
             requests.get(url, timeout=5)
-            print(f"Пинг отправлен: {url} — бот жив!")
+            print(f"Пинг отправлен: {url}")
         except Exception as e:
             print(f"Пинг ошибка: {e}")
-        time.sleep(240)  # Каждые 4 минуты (чтобы не превысить лимит)
-
-# Запуск сервера в фоне
-def run_flask():
-    app.run(host='0.0.0.0', port=8080)
+        time.sleep(240)  # Каждые 4 минуты
 
 threading.Thread(target=run_flask, daemon=True).start()
 threading.Thread(target=keep_alive, daemon=True).start()
 
-print(f"Flask сервер запущен на {url}")
+print("Flask сервер запущен — бот НЕ СПИТ 24/7")
+print("URL: " + f"https://{os.getenv('REPL_SLUG', 'ps5-wb-bot')}.{os.getenv('REPL_OWNER', 'aleolk')}.repl.co")
+
+# Запуск Telegram бота
+bot.infinity_polling()
