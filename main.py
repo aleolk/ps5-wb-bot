@@ -242,18 +242,34 @@ if __name__ == '__main__':
     threading.Thread(target=run_scheduler, daemon=True).start()
     print("PS5 Бот запущен с фильтрами...")
     bot.infinity_polling()
-# Пингер для 24/7
+# === 24/7 ПИНГЕР + FLASK СЕРВЕР (НЕ СПИТ) ===
+from flask import Flask
 import threading
 import requests
+import time
+
+app = Flask('')
+
+@app.route('/')
+def home():
+    return "PS5 Bot is alive! 🕹️"
 
 def keep_alive():
-    url = "https://ps5-wb-bot.aleolk.repl.co"  # ← ТВОЙ URL
+    global url
+    url = f"https://{os.getenv('REPL_SLUG', 'ps5-wb-bot')}.{os.getenv('REPL_OWNER', 'aleolk')}.repl.co"
     while True:
         try:
-            requests.get(url)
-            print("Пинг отправлен — бот жив!")
-        except:
-            pass
-        threading.Event().wait(300)  # каждые 5 минут
+            requests.get(url, timeout=5)
+            print(f"Пинг отправлен: {url} — бот жив!")
+        except Exception as e:
+            print(f"Пинг ошибка: {e}")
+        time.sleep(240)  # Каждые 4 минуты (чтобы не превысить лимит)
 
+# Запуск сервера в фоне
+def run_flask():
+    app.run(host='0.0.0.0', port=8080)
+
+threading.Thread(target=run_flask, daemon=True).start()
 threading.Thread(target=keep_alive, daemon=True).start()
+
+print(f"Flask сервер запущен на {url}")
